@@ -1,19 +1,67 @@
-{%extends "layout.html"%}
-{% block container%}
-{%import "_macros.html" as macros%}
-<form class="max-w-sm mx-auto">
-  <div class="mb-5">
-    <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Your email</label>
-    <input type="email" id="email" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="name@flowbite.com" required />
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="max-w-6xl mx-auto">
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+
+    <table class="w-full text-sm text-left text-body">
+      
+      <thead class="text-sm text-body bg-neutral-secondary-soft border-b border-default">
+        <tr>
+          <th class="px-6 py-3 font-medium">Nombre</th>
+          <th class="px-6 py-3 font-medium">Apaterno</th>
+          <th class="px-6 py-3 font-medium">Email</th>
+          <th class="px-6 py-3 font-medium text-center">Editar</th>
+          <th class="px-6 py-3 font-medium text-center">Modificar</th>
+          <th class="px-6 py-3 font-medium text-center">Eliminar</th>
+        </tr>
+      </thead>
+
+      <tbody id="tabla-contenido">
+        {% for alum in alumno %}
+        <tr class="border-b border-default hover:bg-neutral-secondary-soft transition">
+          <a href="detalles?id={{alum.id}}"></a>
+          <td class="px-6 py-4">{{ alum.nombre }}</td>
+          <td class="px-6 py-4">{{ alum.apaterno }}</td>
+          <td class="px-6 py-4">{{ alum.email }}</td>
+
+          <!-- EDITAR -->
+          <td class="px-6 py-4 text-center">
+            <form method="POST">
+              <button type="submit"
+                class="text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                Editar
+              </button>
+            </form>
+          </td>
+
+          <!-- MODIFICAR -->
+          <td class="px-6 py-4 text-center">
+            <form method="POST">
+              <button type="submit"
+                class="text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                Modificar
+              </button>
+            </form>
+          </td>
+
+          <!-- ELIMINAR -->
+          <td class="px-6 py-4 text-center">
+            <form method="POST">
+              <button type="submit"
+                class="text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                Eliminar
+              </button>
+            </form>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
   </div>
-  <div class="mb-5">
-    <label for="password" class="block mb-2.5 text-sm font-medium text-heading">Your password</label>
-    <input type="password" id="password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="••••••••" required />
-  </div>
-  <label for="remember" class="flex items-center mb-5">
-    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft" required />
-    <p class="ms-2 text-sm font-medium text-heading select-none">I agree with the <a href="#" class="text-fg-brand hover:underline">terms and conditions</a>.</p>
-  </label>
-  <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Submit</button>
-</form>
-{%endblock%}
+</div>
+
+{% endblock %}
