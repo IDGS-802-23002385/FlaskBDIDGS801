@@ -12,7 +12,7 @@
 
     <!-- Nombre como título -->
     <h5 class="mb-4 text-2xl font-semibold tracking-tight text-heading">
-        {{ nombre }} {{ apaterno }}
+        {{ nombre }} {{ apellido }}
     </h5>
 
     <div class="space-y-2 text-body text-sm">
@@ -24,12 +24,16 @@
 
         <div class="flex justify-between border-b border-default pb-2">
             <span class="font-medium">Apellido:</span>
-            <span>{{ apaterno }}</span>
+            <span>{{ apellidos }}</span>
         </div>
 
         <div class="flex justify-between">
             <span class="font-medium">Correo:</span>
             <span>{{ email }}</span>
+        </div>
+        <div class="flex justify-between">
+            <span class="font-medium">Teléfono:</span>
+            <span>{{ telefono }}</span>
         </div>
 
     </div>

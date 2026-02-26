@@ -2,7 +2,7 @@
 {% block container %}
 {% import "_macros.html" as macros %}
 
-<div class="max-w-2xl mx-auto mt-16 bg-neutral-primary-soft p-10 rounded-base shadow-sm border border-default">
+<div class="max-w-2x2 mx-auto mt-16 bg-neutral-primary-soft p-10 rounded-base shadow-sm border border-default">
 
   <form action="/eliminar?id={{id}}" method="POST" class="space-y-10">
     
@@ -11,17 +11,10 @@
     <input type="hidden" name="id" value="{{ id }}">
     <div class="grid md:grid-cols-2 gap-x-8 gap-y-12">
 
-      <div>
-        {{ macros.camponuevo(form.nombre) }}
-      </div>
-
-      <div>
-        {{ macros.camponuevo(form.apaterno) }}
-      </div>
-
-      <div class="md:col-span-2">
-        {{ macros.camponuevo(form.correo) }}
-      </div>
+      {{ macros.camponuevo(form.nombre) }}
+      {{ macros.camponuevo(form.apellidos) }}
+      {{ macros.camponuevo(form.correo) }}
+      {{ macros.camponuevo(form.telefono) }}
 
     </div>
 

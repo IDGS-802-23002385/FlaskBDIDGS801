@@ -2,7 +2,7 @@
 {% block container %}
 {% import "_macros.html" as macros %}
 
-<div class="max-w-2xl mx-auto mt-10 bg-neutral-primary-soft p-8 rounded-base shadow-sm border border-default">
+<div class="max-w-2x2 mx-auto mt-10 bg-neutral-primary-soft p-8 rounded-base shadow-sm border border-default">
 
   <form action="/alumnos" method="POST" class="space-y-6">
     
@@ -11,21 +11,11 @@
 
     <div class="grid md:grid-cols-2 gap-8">
 
-      <div class="relative w-full group">
-        {{ macros.camponuevo(form.nombre,
-        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6") }}
-      </div>
-
-      <div class="relative w-full group">
-        {{ macros.camponuevo(form.apaterno,
-        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6") }}
-      </div>
-
-      <div class="relative w-full md:col-span-2 group">
-        {{ macros.camponuevo(form.correo,
-        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6") }}
-      </div>
-
+      {{ macros.camponuevo(form.nombre) }}
+      {{ macros.camponuevo(form.apellidos) }}
+      {{ macros.camponuevo(form.correo) }}
+      {{ macros.camponuevo(form.telefono) }}
+    
     </div>
 
     <!-- Botón separado del grid -->
