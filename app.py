@@ -7,6 +7,7 @@ from flask import redirect, url_for
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
+from flask_migrate import Migrate
 
 from models import db
 from models import Alumnos
@@ -16,6 +17,7 @@ app = Flask(__name__)
 app.config.from_object(	DevelopmentConfig)
 db.init_app(app)
 csrf=CSRFProtect()
+migrate=Migrate(app,db)
 
 @app.errorhandler(404)
 def notFound(e):
@@ -45,24 +47,62 @@ def alumnos():
 @app.route("/modificar", methods=['GET','POST'])
 def modificar():
 	create_form=forms.UserForm2(request.form)
-	if request.method=="POST":
+	nombre=""
+	apaterno=""
+	email=""
+	id=0
+	if request.method=="GET":
 		id=request.args.get('id')
 		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		nombre=alum1.nombre
+		apaterno=alum1.apaterno
+		email=alum1.email
+		create_form.nombre.data = nombre
+		create_form.apaterno.data = apaterno
+		create_form.correo.data = email
+	if request.method=="POST":
+		id= request.form.get('id')
+		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		alum1.id=id
-		alum1.nombre=str.rsplit(create_form.nombre.data)
-		alum1.apaterno=str.rsplit(create_form.apaterno.data)
-		alum1.email=str.rsplit(create_form.email.data)
+		alum1.nombre=str.rstrip(create_form.nombre.data)
+		alum1.apaterno=str.rstrip(create_form.apaterno.data)
+		alum1.email=str.rstrip(create_form.email.data)
 		db.session.add(alum1)
 		db.session.commit()
 		return redirect(url_for("index"))
-	return render_template("alumnos.html",form=create_form)
+	return render_template("alumnos.html",form=create_form,id=id)
+
+@app.route("/eliminar", methods=['GET','POST'])
+def eliminar():
+	create_form=forms.UserForm2(request.form)
+	nombre=""
+	apaterno=""
+	email=""
+	id=0
+	if request.method=="GET":
+		id=request.args.get('id')
+		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		nombre=alum1.nombre
+		apaterno=alum1.apaterno
+		email=alum1.email
+		create_form.nombre.data = nombre
+		create_form.apaterno.data = apaterno
+		create_form.correo.data = email
+	if request.method=="POST":
+		id= request.form.get('id')
+		alum1=Alumnos.query(id)
+		alum1.id=id
+		db.session.delete(alum1)
+		db.session.commit()
+		return redirect(url_for("index"))
+	return render_template("alumnos.html",form=create_form,id=id)
 
 @app.route("/detalles", methods=["GET","POST"])
 def detalles():
 	create_form=forms.UserForm2(request.form)
 	nombre=""
 	apaterno=""
-	email="email"
+	email=""
 	if request.method=="GET":
 		id=request.args.get('id')
 		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
