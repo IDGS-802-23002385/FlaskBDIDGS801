@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="max-w-2x2 mx-auto mt-16 bg-neutral-primary-soft p-10 rounded-base shadow-sm border border-default">
+
+  <form action="/maestros/modificar?id={{id}}" method="POST" class="space-y-10">
+    
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="id" value="{{ id }}">
+    <div class="grid md:grid-cols-2 gap-x-8 gap-y-12">
+
+      {{ macros.camponuevo(form.nombre) }}
+      {{ macros.camponuevo(form.apellidos) }}
+      {{ macros.camponuevo(form.email) }}
+      {{ macros.camponuevo(form.especialidad) }}
+
+    </div>
+
+    <!-- Botón -->
+    <div class="flex justify-center pt-6">
+      <button type="submit"
+        class="text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm px-8 py-3 transition">
+        Modificar Maestro
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

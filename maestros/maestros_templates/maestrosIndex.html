@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="max-w-6xl mx-auto">
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+
+    <table class="w-full text-sm text-left text-body">
+      
+      <thead class="text-sm text-body bg-neutral-secondary-soft border-b border-default">
+        <tr>
+          <th class="px-6 py-3 font-medium">Nombre</th>
+          <th class="px-6 py-3 font-medium">Apellidos</th>
+          <th class="px-6 py-3 font-medium">Especialidad</th>
+          <th class="px-6 py-3 font-medium">Email</th>
+          <th class="px-6 py-3 font-medium text-center">Editar</th>
+          <th class="px-6 py-3 font-medium text-center">Modificar</th>
+          <th class="px-6 py-3 font-medium text-center">Eliminar</th>
+        </tr>
+      </thead>
+
+      <tbody id="tabla-contenido">
+        {% for maest in maestro %}
+        <tr class="border-b border-default hover:bg-neutral-secondary-soft transition">
+          <td class="px-6 py-4">{{ maest.nombre }}</td>
+          <td class="px-6 py-4">{{ maest.apellidos }}</td>
+          <td class="px-6 py-4">{{ maest.especialidad }}</td>
+          <td class="px-6 py-4">{{ maest.email }}</td>
+          <!-- DETALLES -->
+          <td class="px-6 py-4 text-center">
+              <a href="/maestro/detalles?id={{maest.id}}"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Detalles
+              </a>
+          </td>
+
+          <!-- MODIFICAR -->
+          <td class="px-6 py-4 text-center">
+              <a href="/maestros/modificar?id={{maest.id}}"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Modificar
+              </a>
+          </td>
+
+          <!-- ELIMINAR -->
+          <td class="px-6 py-4 text-center">
+            <form method="POST">
+               <a href="/maestros/eliminar?id={{maest.id}}"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Eliminar
+              </a>
+            </form>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+{% endblock %}
