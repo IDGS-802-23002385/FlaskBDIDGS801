@@ -4,7 +4,7 @@
 
 <div class="max-w-2x2 mx-auto mt-16 bg-neutral-primary-soft p-10 rounded-base shadow-sm border border-default">
 
-  <form action="/maestros/modificar?id={{id}}" method="POST" class="space-y-10">
+  <form action="/cursos/eliminar?id={{id}}" method="POST" class="space-y-10">
     
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -12,23 +12,28 @@
     <div class="grid md:grid-cols-2 gap-x-8 gap-y-12">
 
       {{ macros.camponuevo(form.nombre) }}
-      {{ macros.camponuevo(form.apellidos) }}
-      {{ macros.camponuevo(form.email) }}
-      {{ macros.camponuevo(form.especialidad) }}
-
+      {{ macros.camponuevo(form.descripcion) }}
+      <select name="maestro_id" id="maestro_id" class="form-select">
+        <option value="{{ maestro.id }}">{{ maestro.nombre }} {{ maestro.apellidos }}</option>
+        {% for m in mae %}
+            <option value="{{ m.id }}">
+                {{ m.nombre }} {{ m.apellidos }}
+            </option>
+        {% endfor %}
+       </select>
     </div>
 
     <!-- Botón -->
     <div class="flex justify-center pt-6">
       <form method="GET">
-               <a href="/maestros"
+               <a href="/cursos"
                 class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
                   Cancelar
               </a>
       </form>
       <button type="submit"
-        class="text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm px-8 py-3 transition">
-        Modificar Maestro
+        class="bg-red-600 hover:bg-red-700 text-white focus:ring-4 focus:ring-red-300 shadow-xs font-medium rounded-base text-sm px-8 py-3 transition">
+        Eliminar Curso
       </button>
     </div>
 

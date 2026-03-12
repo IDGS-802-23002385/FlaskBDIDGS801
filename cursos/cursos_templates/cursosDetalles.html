@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="mx-auto bg-neutral-primary-soft block max-w-md p-6 border border-default rounded-base shadow-xs">
+
+    <svg class="w-7 h-7 mb-4 text-fg-brand" xmlns="http://www.w3.org/2000/svg"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5.121 17.804A9 9 0 1118.364 4.56 9 9 0 015.12 17.804z"/>
+    </svg>
+
+    <h5 class="mb-4 text-2xl font-semibold tracking-tight text-heading">
+        {{ nombre }}
+    </h5>
+
+    <div class="space-y-2 text-body text-sm">
+
+        <div class="flex justify-between border-b border-default pb-2">
+            <span class="font-medium">Nombre:</span>
+            <span>{{ nombre }}</span>
+        </div>
+
+        <div class="flex justify-between border-b border-default pb-2">
+            <span class="font-medium">Descripción:</span>
+            <span>{{ descripcion }}</span>
+        </div>
+
+        <div class="flex justify-between">
+            <span class="font-medium">Maestro:</span>
+            <span>{{ maestro.nombre }} {{ maestro.apellidos }}</span>
+        </div>
+
+    </div>
+    <div>
+        <h5>Alumnos en el curso</h5>
+        <table class="w-full text-sm text-left text-body">
+        <thead class="text-sm text-body bg-neutral-secondary-soft border-b border-default">
+            <tr>
+            <th class="px-6 py-3 font-medium">Nombre</th>
+            <th class="px-6 py-3 font-medium">Apellidos</th>
+            <th class="px-6 py-3 font-medium">Email</th>
+            <th class="px-6 py-3 font-medium">Sacar del Curso</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-contenido">
+            {% for a in all %}
+            <tr class="border-b border-default hover:bg-neutral-secondary-soft transition">
+            <td class="px-6 py-4">{{ a.nombre }}</td>
+            <td class="px-6 py-4">{{ a.apellidos }}</td>
+            <td class="px-6 py-4">{{ a.email }}</td>
+            <td class="px-6 py-4 text-center">
+            <form method="GET">
+               <a href="/cursos/expulsar?id={{id}}&id_alumno={{a.id}}"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Eliminar
+              </a>
+            </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <form method="GET" class="mt-6">
+               <a href="/cursos"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Cancelar
+              </a>
+    </form>
+
+</div>
+{% endblock %}

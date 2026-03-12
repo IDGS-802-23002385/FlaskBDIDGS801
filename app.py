@@ -8,6 +8,7 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
 from maestros import maestros_bp
+from cursos import cursos_bp
 from flask_migrate import Migrate
 
 from models import db
@@ -17,6 +18,7 @@ import forms
 app = Flask(__name__)
 app.config.from_object(	DevelopmentConfig)
 app.register_blueprint(maestros_bp)
+app.register_blueprint(cursos_bp)
 db.init_app(app)
 csrf=CSRFProtect()
 migrate=Migrate(app,db)
@@ -33,8 +35,14 @@ def index():
 	alumno= Alumnos.query.all()
 	return render_template("index.html", form=create_form,alumno=alumno)
 
+@app.route("/alumnos")
+def alumnosLista():
+	create_form=forms.UserForm2(request.form)
+	#tem=Alumnos.query('select * from alumnos')
+	alumno= Alumnos.query.all()
+	return render_template("alumnosIndex.html", form=create_form,alumno=alumno)
 
-@app.route("/alumnos", methods=['GET','POST'])
+@app.route("/alumnos/agregar", methods=['GET','POST'])
 def alumnos():
 	create_form=forms.UserForm2(request.form)
 	if request.method=="POST":
@@ -44,7 +52,7 @@ def alumnos():
 			   telefono=create_form.telefono.data)
 		db.session.add(alum)
 		db.session.commit()
-		return redirect(url_for("index"))
+		return redirect("alumnos")
 	return render_template("alumnos.html",form=create_form)
 
 @app.route("/modificar", methods=['GET','POST'])
@@ -76,7 +84,7 @@ def modificar():
 		alum1.telefono=str.rstrip(create_form.telefono.data)
 		db.session.add(alum1)
 		db.session.commit()
-		return redirect(url_for("index"))
+		return redirect("alumnos")
 	return render_template("modificar.html",form=create_form,id=id)
 
 @app.route("/eliminar", methods=['GET','POST'])
@@ -104,7 +112,7 @@ def eliminar():
 		alum1.id=id
 		db.session.delete(alum1)
 		db.session.commit()
-		return redirect(url_for("index"))
+		return redirect("alumnos")
 	return render_template("eliminar.html",form=create_form,id=id)
 
 @app.route("/detalles", methods=["GET","POST"])
@@ -114,6 +122,7 @@ def detalles():
 	apellidos=""
 	email=""
 	telefono=""
+	cursos=""
 	if request.method=="GET":
 		id=request.args.get('id')
 		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
@@ -121,7 +130,8 @@ def detalles():
 		apellidos=alum1.apellidos
 		email=alum1.email
 		telefono=alum1.telefono
-	return render_template("detalles.html",nombre=nombre,apellidos=apellidos,email=email,telefono=telefono)
+		cursos=alum1.cursos
+	return render_template("detalles.html",nombre=nombre,apellidos=apellidos,email=email,telefono=telefono,cursos=cursos)
 
 if __name__ == '__main__':
 	csrf.init_app(app)

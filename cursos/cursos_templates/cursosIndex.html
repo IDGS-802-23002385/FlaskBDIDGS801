@@ -10,25 +10,24 @@
       <thead class="text-sm text-body bg-neutral-secondary-soft border-b border-default">
         <tr>
           <th class="px-6 py-3 font-medium">Nombre</th>
-          <th class="px-6 py-3 font-medium">Apellidos</th>
-          <th class="px-6 py-3 font-medium">Especialidad</th>
-          <th class="px-6 py-3 font-medium">Email</th>
+          <th class="px-6 py-3 font-medium">Descripcion</th>
+          <th class="px-6 py-3 font-medium">Maestro</th>
           <th class="px-6 py-3 font-medium text-center">Editar</th>
           <th class="px-6 py-3 font-medium text-center">Modificar</th>
           <th class="px-6 py-3 font-medium text-center">Eliminar</th>
+          <th class="px-6 py-3 font-medium text-center">inscribir Alumnos</th>
         </tr>
       </thead>
 
       <tbody id="tabla-contenido">
-        {% for maest in maestro %}
+        {% for c in curso %}
         <tr class="border-b border-default hover:bg-neutral-secondary-soft transition">
-          <td class="px-6 py-4">{{ maest.nombre }}</td>
-          <td class="px-6 py-4">{{ maest.apellidos }}</td>
-          <td class="px-6 py-4">{{ maest.especialidad }}</td>
-          <td class="px-6 py-4">{{ maest.email }}</td>
+          <td class="px-6 py-4">{{ c.nombre }}</td>
+          <td class="px-6 py-4">{{ c.descripcion }}</td>
+          <td class="px-6 py-4">{{ c.maestro.nombre }}</td>
           <!-- DETALLES -->
           <td class="px-6 py-4 text-center">
-              <a href="/maestro/detalles?id={{maest.id}}"
+              <a href="/cursos/detalles?id={{c.id}}"
                 class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
                   Detalles
               </a>
@@ -36,7 +35,7 @@
 
           <!-- MODIFICAR -->
           <td class="px-6 py-4 text-center">
-              <a href="/maestros/modificar?id={{maest.id}}"
+              <a href="/cursos/modificar?id={{c.id}}"
                 class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
                   Modificar
               </a>
@@ -45,11 +44,19 @@
           <!-- ELIMINAR -->
           <td class="px-6 py-4 text-center">
             <form method="POST">
-               <a href="/maestros/eliminar?id={{maest.id}}"
+               <a href="/cursos/eliminar?id={{c.id}}"
                 class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
                   Eliminar
               </a>
             </form>
+          </td>
+
+          <!-- INSCRIBIR ALUMNOS -->
+          <td class="px-6 py-4 text-center">
+            <a href="/cursos/inscripcion?id={{c.id}}"
+              class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                Inscribir Alumnos
+            </a>
           </td>
 
         </tr>
@@ -59,7 +66,7 @@
     </table>
   </div>
   <form method="GET">
-               <a href="/maestros/agregar"
+               <a href="/curso/agregar"
                 class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
                   Agregar
               </a>

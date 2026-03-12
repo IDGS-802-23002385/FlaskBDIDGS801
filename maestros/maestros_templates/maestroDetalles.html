@@ -1,16 +1,15 @@
 {% extends "layout.html" %}
 {% block container %}
 {% import "_macros.html" as macros %}
-<div class="bg-neutral-primary-soft block max-w-md p-6 border border-default rounded-base shadow-xs">
 
-    <!-- Icono superior -->
+<div class="mx-auto bg-neutral-primary-soft block max-w-md p-6 border border-default rounded-base shadow-xs">
+
     <svg class="w-7 h-7 mb-4 text-fg-brand" xmlns="http://www.w3.org/2000/svg"
         fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M5.121 17.804A9 9 0 1118.364 4.56 9 9 0 015.12 17.804z"/>
     </svg>
 
-    <!-- Nombre como título -->
     <h5 class="mb-4 text-2xl font-semibold tracking-tight text-heading">
         {{ nombre }} {{ apellidos }}
     </h5>
@@ -27,16 +26,24 @@
             <span>{{ apellidos }}</span>
         </div>
 
-        <div class="flex justify-between">
+        <div class="flex justify-between border-b border-default pb-2">
             <span class="font-medium">Correo:</span>
             <span>{{ email }}</span>
         </div>
+        
         <div class="flex justify-between">
-            <span class="font-medium">Teléfono:</span>
+            <span class="font-medium">Especialidad:</span>
             <span>{{ especialidad }}</span>
         </div>
 
     </div>
+    
+    <form method="GET" class="mt-6">
+               <a href="/maestros"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-4 py-2 focus:outline-none">
+                  Cancelar
+              </a>
+    </form>
 
 </div>
 {% endblock %}

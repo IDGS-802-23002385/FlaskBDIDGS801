@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="max-w-2xl mx-auto mt-16 bg-neutral-primary-soft p-10 rounded-base shadow-sm border border-default">
+
+  <form action="/cursos/inscripcion?id={{id}}" method="POST" class="space-y-10">
+    
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="id" value="{{ id }}">
+
+    <div class="flex flex-col items-center space-y-4 text-center">
+        <h5 class="text-2xl font-semibold tracking-tight text-heading">
+            {{ form.nombre(readonly=true, class="bg-transparent border-none text-center focus:ring-0") }}
+        </h5>
+        <p class="text-body text-sm italic">
+            {{ form.descripcion(readonly=true, class="bg-transparent border-none text-center focus:ring-0 w-full") }}
+        </p>
+        <p class="text-lg font-medium text-fg-brand">
+            Maestro: {{ maestro.nombre }} {{ maestro.apellidos }}
+        </p>        
+        
+        <div class="w-full max-w-xs mt-6">
+            <label for="alumno_id" class="block mb-2 text-sm font-medium text-heading">Seleccionar Alumno</label>
+            <select name="alumno_id" id="alumno_id" class="form-select w-full border-default rounded-base">
+                <option value="">Seleccione un Alumno</option>
+                {% for a in alu %}
+                    <option value="{{ a.id }}">
+                        {{ a.nombre }} {{ a.apellidos }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center gap-4 pt-6 border-t border-default">
+        <a href="/cursos"
+           class="inline-block text-body bg-neutral-secondary border border-default hover:bg-neutral-tertiary font-medium rounded-base text-sm px-6 py-3 transition">
+            Cancelar
+        </a>
+        <button type="submit"
+            class="text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm px-8 py-3 transition">
+            Inscribir al Curso
+        </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

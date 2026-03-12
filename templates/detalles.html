@@ -1,39 +1,85 @@
 {% extends "layout.html" %}
 {% block container %}
 {% import "_macros.html" as macros %}
-<div class="bg-neutral-primary-soft block max-w-md p-6 border border-default rounded-base shadow-xs">
 
-    <!-- Icono superior -->
-    <svg class="w-7 h-7 mb-4 text-fg-brand" xmlns="http://www.w3.org/2000/svg"
-        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M5.121 17.804A9 9 0 1118.364 4.56 9 9 0 015.12 17.804z"/>
-    </svg>
+<!-- Contenedor principal con flexbox para centrar -->
+<div class="flex items-center justify-center min-h-[calc(100vh-200px)]">
+    
+    <div class="bg-neutral-primary-soft block max-w-md p-6 border border-default rounded-base shadow-xs w-full">
 
-    <!-- Nombre como título -->
-    <h5 class="mb-4 text-2xl font-semibold tracking-tight text-heading">
-        {{ nombre }} {{ apellido }}
-    </h5>
+        <!-- Icono superior -->
+        <svg class="w-7 h-7 mb-4 text-fg-brand mx-auto" xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5.121 17.804A9 9 0 1118.364 4.56 9 9 0 015.12 17.804z"/>
+        </svg>
 
-    <div class="space-y-2 text-body text-sm">
+        <!-- Nombre como título centrado -->
+        <h5 class="mb-4 text-2xl font-semibold tracking-tight text-heading text-center">
+            {{ nombre }} {{ apellido }}
+        </h5>
 
-        <div class="flex justify-between border-b border-default pb-2">
-            <span class="font-medium">Nombre:</span>
-            <span>{{ nombre }}</span>
+        <div class="space-y-2 text-body text-sm">
+
+            <div class="flex justify-between border-b border-default pb-2">
+                <span class="font-medium">Nombre:</span>
+                <span>{{ nombre }}</span>
+            </div>
+
+            <div class="flex justify-between border-b border-default pb-2">
+                <span class="font-medium">Apellido:</span>
+                <span>{{ apellidos }}</span>
+            </div>
+
+            <div class="flex justify-between border-b border-default pb-2">
+                <span class="font-medium">Correo:</span>
+                <span>{{ email }}</span>
+            </div>
+            
+            <div class="flex justify-between">
+                <span class="font-medium">Teléfono:</span>
+                <span>{{ telefono }}</span>
+            </div>
         </div>
 
-        <div class="flex justify-between border-b border-default pb-2">
-            <span class="font-medium">Apellido:</span>
-            <span>{{ apellidos }}</span>
+        <!-- Título de la tabla centrado -->
+        <h6 class="mt-6 mb-3 text-lg font-semibold text-heading text-center">Cursos del Alumno</h6>
+
+        <!-- Tabla con scroll si hay muchos cursos -->
+        <div class="overflow-x-auto max-h-64 overflow-y-auto">
+            <table class="w-full text-sm text-left text-body">
+                <thead class="text-sm text-body bg-neutral-secondary-soft border-b border-default sticky top-0">
+                    <tr>
+                        <th class="px-6 py-3 font-medium">Nombre</th>
+                        <th class="px-6 py-3 font-medium">Descripción</th>
+                        <th class="px-6 py-3 font-medium">Maestro</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-contenido">
+                {% for c in cursos %}
+                <tr class="border-b border-default hover:bg-neutral-secondary-soft transition">
+                    <td class="px-6 py-4">{{ c.nombre }}</td>
+                    <td class="px-6 py-4">{{ c.descripcion }}</td>
+                    <td class="px-6 py-4">{{ c.maestro.nombre }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                        No hay cursos inscritos
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
 
-        <div class="flex justify-between">
-            <span class="font-medium">Correo:</span>
-            <span>{{ email }}</span>
-        </div>
-        <div class="flex justify-between">
-            <span class="font-medium">Teléfono:</span>
-            <span>{{ telefono }}</span>
+        <!-- Botón centrado -->
+        <div class="mt-6 text-center">
+            <a href="/alumnos"
+                class="inline-block text-white bg-brand border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium rounded-base text-sm px-6 py-2.5 focus:outline-none transition-colors duration-200">
+                Volver a Alumnos
+            </a>
         </div>
 
     </div>
